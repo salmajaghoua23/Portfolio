@@ -23,7 +23,7 @@ const HeroSection = () => {
             <span className="text-gradient">Jaghoua</span>
           </h1>
           <p className="font-display text-xl md:text-2xl text-accent mb-6">
-            AI & Cloud Engineering Student
+            AI & Data Science Enthusiast | Software Engineer | Tech Innovator
           </p>
         </motion.div>
 
@@ -33,7 +33,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Passionate about Artificial Intelligence, Cloud Computing, and Full Stack Development.
+          Passionate about Artificial Intelligence, Cloud Computing, Data Science, and Full Stack Development.
           Focused on building intelligent and innovative systems that push the boundaries of technology.
         </motion.p>
 
@@ -44,7 +44,7 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="#contact"
+            href="/public/cv.pdf"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-primary text-primary-foreground font-medium text-sm hover:opacity-90 transition-opacity"
           >
             <Download size={18} />

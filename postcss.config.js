@@ -1,6 +1,6 @@
 export default {
   plugins: {
-    tailwindcss: {},
+    tailwindcss: {},//Transforme les classes utilitaires Tailwind (comme bg-blue-500, flex, p-4) en CSS réel
     autoprefixer: {},
   },
 };

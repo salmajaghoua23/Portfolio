@@ -21,7 +21,7 @@ const AboutSection = () => {
             {
               icon: GraduationCap,
               title: "Education",
-              desc: "Bachelor's degree in Computer Science (Bac+3) with a strong foundation in software engineering, algorithms, and intelligent systems.",
+              desc: "Bachelor's degree in Computer Science (Bac+ 4) with a strong foundation in software engineering, algorithms, and intelligent systems.",
             },
             {
               icon: Target,
@@ -31,7 +31,7 @@ const AboutSection = () => {
             {
               icon: Globe,
               title: "Ambition",
-              desc: "Aiming to pursue advanced studies in France in AI and Cloud Computing, and contribute to cutting-edge technological innovation.",
+              desc: "Aiming to pursue advanced studies in France in AI and Data Science, and contribute to cutting-edge technological innovation.",
             },
           ].map((item, i) => (
             <motion.div
