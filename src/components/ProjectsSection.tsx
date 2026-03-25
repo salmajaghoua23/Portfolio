@@ -1,20 +1,29 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Brain, BookOpen, ScanFace, Pill, Github } from "lucide-react";
+import { ExternalLink, Brain, BookOpen, ScanFace, Pill, Stethoscope } from "lucide-react";
 import { useState } from "react";
 
 import projectEcommerce from "@/assets/project-ecommerce.jpg";
 import projectLibrary from "@/assets/project-library.jpg";
 import projectFace from "@/assets/project-face.jpg";
 import projectPharmacy from "@/assets/project-pharmacy.jpg";
+import projectMedical from "@/assets/project-medical.jpg";
 
 const projects = [
+  {
+    icon: Stethoscope,
+    title: "Medical Information System",
+    desc: "A comprehensive medical information management system with patient records, appointment scheduling, health data analytics, and reporting dashboards built recently as a full-stack project.",
+    techs: ["Java EE", "Spring Boot", "MySQL", "REST API"],
+    image: projectMedical,
+    featured: true,
+  },
   {
     icon: Brain,
     title: "AI-Powered E-commerce Search",
     desc: "Intelligent product search engine using image and text queries powered by Convolutional Neural Networks for accurate visual similarity matching.",
     techs: ["Python", "TensorFlow", "CNN", "Flask"],
     image: projectEcommerce,
-    color: "from-purple-500/20 to-blue-500/20",
+    featured: false,
   },
   {
     icon: BookOpen,
@@ -22,7 +31,7 @@ const projects = [
     desc: "Full-featured library management application with database connectivity, CRUD operations, and an intuitive graphical user interface.",
     techs: ["C++", "Qt", "MySQL", "OOP"],
     image: projectLibrary,
-    color: "from-indigo-500/20 to-violet-500/20",
+    featured: false,
   },
   {
     icon: ScanFace,
@@ -30,7 +39,7 @@ const projects = [
     desc: "Real-time face detection and recognition system using computer vision techniques for identification and verification.",
     techs: ["Python", "OpenCV", "NumPy"],
     image: projectFace,
-    color: "from-emerald-500/20 to-cyan-500/20",
+    featured: false,
   },
   {
     icon: Pill,
@@ -38,7 +47,7 @@ const projects = [
     desc: "Complete pharmacy management solution with stock tracking, sales management, statistics dashboards, and reporting features.",
     techs: ["C", "File Management", "Statistics"],
     image: projectPharmacy,
-    color: "from-teal-500/20 to-blue-500/20",
+    featured: false,
   },
 ];
 
@@ -50,75 +59,72 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
+      transition={{ duration: 0.6, delay: index * 0.12, ease: "easeOut" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative rounded-2xl overflow-hidden border border-border/50 bg-card shadow-card hover:shadow-xl transition-all duration-500"
+      className={`group relative rounded-2xl overflow-hidden border border-border/50 bg-card shadow-card hover:shadow-xl hover:border-primary/30 transition-all duration-500 ${
+        project.featured ? "md:col-span-2" : ""
+      }`}
     >
-      {/* Image container */}
-      <div className="relative h-56 overflow-hidden">
-        <motion.img
-          src={project.image}
-          alt={project.title}
-          loading="lazy"
-          width={800}
-          height={512}
-          className="w-full h-full object-cover"
-          animate={{ scale: isHovered ? 1.08 : 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        />
-        {/* Gradient overlay */}
-        <div className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-60`} />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+      {/* Featured badge */}
+      {project.featured && (
+        <div className="absolute top-4 right-4 z-20">
+          <span className="px-3 py-1 text-[10px] font-semibold uppercase tracking-widest rounded-full bg-accent text-accent-foreground">
+            Recent
+          </span>
+        </div>
+      )}
 
-        {/* Floating icon */}
-        <motion.div
-          className="absolute top-4 left-4 w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center backdrop-blur-sm shadow-lg"
-          animate={{ rotate: isHovered ? 10 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <project.icon size={22} className="text-primary-foreground" />
-        </motion.div>
+      <div className={`${project.featured ? "md:flex" : ""}`}>
+        {/* Image */}
+        <div className={`relative overflow-hidden ${project.featured ? "md:w-1/2 h-64 md:h-auto" : "h-52"}`}>
+          <motion.img
+            src={project.image}
+            alt={project.title}
+            loading="lazy"
+            width={800}
+            height={512}
+            className="w-full h-full object-cover"
+            animate={{ scale: isHovered ? 1.06 : 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
 
-        {/* Hover link icon */}
-        <motion.div
-          className="absolute top-4 right-4"
-          animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : -8 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center border border-border/50">
-            <ExternalLink size={16} className="text-accent" />
+          <motion.div
+            className="absolute top-4 left-4 w-11 h-11 rounded-xl bg-gradient-primary flex items-center justify-center backdrop-blur-sm shadow-lg"
+            animate={{ rotate: isHovered ? 8 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <project.icon size={20} className="text-primary-foreground" />
+          </motion.div>
+        </div>
+
+        {/* Content */}
+        <div className={`p-6 ${project.featured ? "md:w-1/2 md:flex md:flex-col md:justify-center" : ""}`}>
+          <h3 className="font-display text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">
+            {project.title}
+          </h3>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+            {project.desc}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {project.techs.map((tech, i) => (
+              <motion.span
+                key={tech}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.3 + i * 0.05 }}
+                className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium"
+              >
+                {tech}
+              </motion.span>
+            ))}
           </div>
-        </motion.div>
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="font-display text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">
-          {project.title}
-        </h3>
-        <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-          {project.desc}
-        </p>
-
-        {/* Tech tags */}
-        <div className="flex flex-wrap gap-2">
-          {project.techs.map((tech, i) => (
-            <motion.span
-              key={tech}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: 0.4 + i * 0.05 }}
-              className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium"
-            >
-              {tech}
-            </motion.span>
-          ))}
         </div>
       </div>
 
-      {/* Bottom accent line */}
+      {/* Bottom accent */}
       <motion.div
         className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary via-accent to-primary"
         initial={{ width: "0%" }}
@@ -132,7 +138,6 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
 const ProjectsSection = () => {
   return (
     <section id="projects" className="py-24 px-6 relative">
-      {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 -left-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
@@ -158,12 +163,12 @@ const ProjectsSection = () => {
           <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-foreground">
             Featured Projects
           </h2>
-          <p className="text-muted-foreground max-w-lg mx-auto">
+          <p className="text-muted-foreground max-w-lg mx-auto text-sm">
             A selection of projects showcasing my skills in AI, software engineering, and full-stack development.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project, i) => (
             <ProjectCard key={project.title} project={project} index={i} />
           ))}
