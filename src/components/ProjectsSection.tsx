@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Brain, BookOpen, ScanFace, Pill, Stethoscope } from "lucide-react";
+import { Brain, BookOpen, ScanFace, Pill, Stethoscope, Hand, RadioTower, Network } from "lucide-react";
 import { useState } from "react";
 
 import projectEcommerce from "@/assets/project-ecommerce.jpg";
@@ -7,6 +7,9 @@ import projectLibrary from "@/assets/project-library.jpg";
 import projectFace from "@/assets/project-face.jpg";
 import projectPharmacy from "@/assets/project-pharmacy.jpg";
 import projectMedical from "@/assets/project-medical.jpg";
+import projectSignLanguage from "@/assets/project-sign-language.jpg";
+import projectTelecom from "@/assets/project-telecom.jpg";
+import projectMicroservices from "@/assets/project-microservices.jpg";
 
 const projects = [
   {
@@ -47,6 +50,30 @@ const projects = [
     desc: "Complete pharmacy management solution with stock tracking, sales management, statistics dashboards, and reporting features.",
     techs: ["C", "File Management", "Statistics"],
     image: projectPharmacy,
+    featured: false,
+  },
+  {
+    icon: Hand,
+    title: "Sign Language Translation",
+    desc: "Real-time webcam system recognizing sign-language gestures and translating them into text using deep learning and computer vision.",
+    techs: ["Python", "TensorFlow", "Keras", "MediaPipe", "BiLSTM"],
+    image: projectSignLanguage,
+    featured: false,
+  },
+  {
+    icon: RadioTower,
+    title: "Telecom QoS / QoE Analysis",
+    desc: "Desktop network-quality analysis application calculating performance indicators including latency, jitter, throughput and MOS.",
+    techs: ["Java", "JavaFX", "Oracle DB", "Python"],
+    image: projectTelecom,
+    featured: false,
+  },
+  {
+    icon: Network,
+    title: "Course Enrollment Microservices",
+    desc: "Microservices application for managing students, courses and enrollment, with an API Gateway and Eureka service discovery.",
+    techs: ["Java", "Spring Boot", "Spring Cloud", "Eureka", "MySQL"],
+    image: projectMicroservices,
     featured: false,
   },
 ];

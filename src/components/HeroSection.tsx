@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Download, FolderOpen, Mail } from "lucide-react";
+import cvAsset from "@/assets/cv-salma-2027.pdf.asset.json";
 
 const HeroSection = () => {
   return (
@@ -23,7 +24,7 @@ const HeroSection = () => {
             <span className="text-gradient">Jaghoua</span>
           </h1>
           <p className="font-display text-xl md:text-2xl text-accent mb-6">
-            AI & Data Science Enthusiast | Software Engineer | Tech Innovator
+            Computer Engineering Student | AI & Cloud Engineering
           </p>
         </motion.div>
 
@@ -44,11 +45,12 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="/public/cv.pdf"
+            href={cvAsset.url}
+            download="Cv_Salma_Jaghoua_FR_2027.pdf"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-primary text-primary-foreground font-medium text-sm hover:opacity-90 transition-opacity"
           >
             <Download size={18} />
-            Download CV
+            Download CV (French)
           </a>
           <a
             href="#projects"

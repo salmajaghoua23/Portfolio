@@ -10,6 +10,7 @@ const skillCategories = [
       { name: "Python", level: 85 },
       { name: "C/C++", level: 80 },
       { name: "JavaScript", level: 80 },
+      { name: "TypeScript", level: 80 },
       { name: "PHP", level: 70 },
     ],
   },
@@ -18,6 +19,7 @@ const skillCategories = [
     icon: Globe,
     skills: [
       { name: "Spring Boot", level: 85 },
+      { name: "Django / DRF", level: 80 },
       { name: "MERN Stack", level: 80 },
       { name: "Flask", level: 75 },
       { name: "Laravel", level: 70 },
@@ -43,6 +45,7 @@ const skillCategories = [
     skills: [
       { name: "Git/GitLab", level: 85 },
       { name: "Docker", level: 70 },
+      { name: "GitHub Actions / CI", level: 75 },
       { name: "n8n Automation", level: 65 },
       { name: "MySQL", level: 85 },
       { name: "REST APIs", level: 80 },
@@ -112,6 +115,21 @@ const SkillsSection = () => {
                   />
                 ))}
               </div>
+              {cat.title === "Cloud & DevOps" && (
+                <p className="text-xs text-muted-foreground mt-5 pt-4 border-t border-border/50 leading-relaxed">
+                  Also: PostgreSQL · Oracle DB · MongoDB · Celery · pytest · ruff · mypy · bandit · Webhooks
+                </p>
+              )}
+              {cat.title === "Web Development" && (
+                <p className="text-xs text-muted-foreground mt-5 pt-4 border-t border-border/50 leading-relaxed">
+                  Also: React · Tailwind CSS · TanStack Start · REST APIs
+                </p>
+              )}
+              {cat.title === "AI & Data Science" && (
+                <p className="text-xs text-muted-foreground mt-5 pt-4 border-t border-border/50 leading-relaxed">
+                  Also: Keras · MediaPipe · BiLSTM
+                </p>
+              )}
             </motion.div>
           ))}
         </div>

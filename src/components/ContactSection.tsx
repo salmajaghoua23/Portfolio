@@ -50,14 +50,14 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-10">
+        <div className="grid md:grid-cols-2 gap-10 min-w-0">
           {/* Info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-5"
+            className="space-y-5 min-w-0"
           >
             <p className="text-muted-foreground text-sm leading-relaxed">
               I'm always open to new opportunities, collaborations, and conversations about AI, Data Science, and tech innovation. 
@@ -65,6 +65,7 @@ const ContactSection = () => {
             </p>
             {[
               { icon: Mail, label: "salmajaghoua@gmail.com", href: "mailto:salmajaghoua@gmail.com" },
+              { icon: Mail, label: "salma.jaghoua@etu.uae.ac.ma", href: "mailto:salma.jaghoua@etu.uae.ac.ma" },
               { icon: Github, label: "github.com/salmajaghoua", href: "https://github.com/salmajaghoua23" },
               { icon: Linkedin, label: "linkedin.com/in/salmajaghoua", href: "https://www.linkedin.com/in/salma-jaghoua-077709293/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BXWpnlNaKQj%2BwoiW3JAIr9w%3D%3D" },
               { icon: MapPin, label: "Morocco — Open to France mobility" },
@@ -72,13 +73,13 @@ const ContactSection = () => {
               <motion.div
                 key={item.label}
                 whileHover={{ x: 4 }}
-                className="flex items-center gap-3"
+                className="flex items-center gap-3 min-w-0"
               >
-                <div className="w-11 h-11 rounded-xl bg-gradient-card border border-border/50 flex items-center justify-center">
+                <div className="w-11 h-11 shrink-0 rounded-xl bg-gradient-card border border-border/50 flex items-center justify-center">
                   <item.icon size={18} className="text-accent" />
                 </div>
                 {item.href ? (
-                  <a href={item.href} target="_blank" rel="noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href={item.href} target="_blank" rel="noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors break-all min-w-0">
                     {item.label}
                   </a>
                 ) : (
@@ -90,21 +91,21 @@ const ContactSection = () => {
 
           {/* Form */}
           <motion.form
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             onSubmit={handleSubmit}
-            className="space-y-4"
+            className="space-y-4 min-w-0"
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-4 min-w-0">
               <input
                 type="text"
                 placeholder="Your Name"
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-secondary border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                className="w-full min-w-0 px-4 py-3 rounded-xl bg-secondary border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
               />
               <input
                 type="email"
@@ -112,7 +113,7 @@ const ContactSection = () => {
                 required
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-secondary border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                className="w-full min-w-0 px-4 py-3 rounded-xl bg-secondary border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
               />
             </div>
             <textarea
