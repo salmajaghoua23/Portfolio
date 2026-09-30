@@ -53,8 +53,8 @@ const ContactSection = () => {
         <div className="grid md:grid-cols-2 gap-10 min-w-0">
           {/* Info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="space-y-5 min-w-0"
@@ -91,8 +91,8 @@ const ContactSection = () => {
 
           {/* Form */}
           <motion.form
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             onSubmit={handleSubmit}
