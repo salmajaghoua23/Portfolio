@@ -50,14 +50,14 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-10">
+        <div className="grid md:grid-cols-2 gap-10 min-w-0">
           {/* Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-5"
+            className="space-y-5 min-w-0"
           >
             <p className="text-muted-foreground text-sm leading-relaxed">
               I'm always open to new opportunities, collaborations, and conversations about AI, Data Science, and tech innovation. 
@@ -73,13 +73,13 @@ const ContactSection = () => {
               <motion.div
                 key={item.label}
                 whileHover={{ x: 4 }}
-                className="flex items-center gap-3"
+                className="flex items-center gap-3 min-w-0"
               >
-                <div className="w-11 h-11 rounded-xl bg-gradient-card border border-border/50 flex items-center justify-center">
+                <div className="w-11 h-11 shrink-0 rounded-xl bg-gradient-card border border-border/50 flex items-center justify-center">
                   <item.icon size={18} className="text-accent" />
                 </div>
                 {item.href ? (
-                  <a href={item.href} target="_blank" rel="noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href={item.href} target="_blank" rel="noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors break-all min-w-0">
                     {item.label}
                   </a>
                 ) : (
@@ -96,16 +96,16 @@ const ContactSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             onSubmit={handleSubmit}
-            className="space-y-4"
+            className="space-y-4 min-w-0"
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-4 min-w-0">
               <input
                 type="text"
                 placeholder="Your Name"
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-secondary border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                className="w-full min-w-0 px-4 py-3 rounded-xl bg-secondary border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
               />
               <input
                 type="email"
@@ -113,7 +113,7 @@ const ContactSection = () => {
                 required
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-secondary border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                className="w-full min-w-0 px-4 py-3 rounded-xl bg-secondary border border-border/50 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
               />
             </div>
             <textarea
