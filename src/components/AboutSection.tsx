@@ -21,17 +21,17 @@ const AboutSection = () => {
             {
               icon: GraduationCap,
               title: "Education",
-              desc: "Bachelor's degree in Computer Science (Bac+ 4) with a strong foundation in software engineering, algorithms, and intelligent systems.",
+              desc: "Fifth-year Computer Engineering student at ENSA Al Hoceima (engineering cycle since 2024), following two years of preparatory engineering studies there (2022–2024).",
             },
             {
               icon: Target,
               title: "Experience",
-              desc: "Hands-on experience in C++, Qt, Web Development, Machine Learning, and database-driven applications. Skilled in building end-to-end solutions.",
+              desc: "Backend development, AI integration, and process automation through internships with ARIMAYI, STELLANTIS Morocco, Synergy Soft, and Fujikura Automotive.",
             },
             {
               icon: Globe,
               title: "Ambition",
-              desc: "Aiming to pursue advanced studies in France in AI and Data Science, and contribute to cutting-edge technological innovation.",
+              desc: "Seeking a final-year internship in software development, Spring Boot, DevOps, or cybersecurity, with an interest in AI and cloud engineering.",
             },
           ].map((item, i) => (
             <motion.div
@@ -49,6 +49,16 @@ const AboutSection = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
+        </div>
+        <div className="mt-12 grid md:grid-cols-2 gap-8 border-t border-border/50 pt-8 text-sm">
+          <div>
+            <h3 className="font-display font-semibold text-foreground mb-3">Certifications & community</h3>
+            <p className="text-muted-foreground leading-relaxed">freeCodeCamp AI Agents and Data Science certifications (2024–2025). Member of Club 01 and DataAI Club; participated in Hult Prize (2022–2023).</p>
+          </div>
+          <div>
+            <h3 className="font-display font-semibold text-foreground mb-3">Languages</h3>
+            <p className="text-muted-foreground leading-relaxed">Arabic (native) · French (fluent) · English (fluent) · Spanish (beginner)</p>
+          </div>
         </div>
       </div>
     </section>

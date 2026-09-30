@@ -17,10 +17,10 @@ const CareerSection = () => {
           <p className="text-sm tracking-[0.2em] uppercase text-accent mb-2">What drives me</p>
           <h2 className="font-display text-3xl md:text-4xl font-bold mb-8">Career Objective</h2>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-            My ambition is to become an <span className="text-foreground font-medium">AI and Data Scientist</span>, 
-            leveraging cutting-edge technologies to design and deploy intelligent systems at scale. 
-            I aspire to contribute to innovative technological solutions that transform industries 
-            and improve lives — bridging the gap between advanced research and real-world applications.
+            I aim to grow as a <span className="text-foreground font-medium">software, AI and cloud engineer</span>,
+            building dependable systems that connect strong backend engineering with practical AI.
+            I am seeking a final-year internship in software development, Spring Boot, DevOps or cybersecurity,
+            and opportunities to contribute to innovative technology teams internationally.
           </p>
         </motion.div>
       </div>

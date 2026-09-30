@@ -65,6 +65,7 @@ const ContactSection = () => {
             </p>
             {[
               { icon: Mail, label: "salmajaghoua@gmail.com", href: "mailto:salmajaghoua@gmail.com" },
+              { icon: Mail, label: "salma.jaghoua@etu.uae.ac.ma", href: "mailto:salma.jaghoua@etu.uae.ac.ma" },
               { icon: Github, label: "github.com/salmajaghoua", href: "https://github.com/salmajaghoua23" },
               { icon: Linkedin, label: "linkedin.com/in/salmajaghoua", href: "https://www.linkedin.com/in/salma-jaghoua-077709293/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BXWpnlNaKQj%2BwoiW3JAIr9w%3D%3D" },
               { icon: MapPin, label: "Morocco — Open to France mobility" },
