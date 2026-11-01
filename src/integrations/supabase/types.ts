@@ -7,8 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "14.4"
   }
@@ -17,34 +15,31 @@ export type Database = {
       certifications: {
         Row: {
           created_at: string
-          description_en: string | null
-          description_fr: string | null
           id: string
+          kind: string
           name_en: string
-          name_fr: string | null
-          org: string | null
+          name_fr: string
+          organization: string | null
           sort_order: number
           year: string | null
         }
         Insert: {
           created_at?: string
-          description_en?: string | null
-          description_fr?: string | null
           id?: string
+          kind?: string
           name_en: string
-          name_fr?: string | null
-          org?: string | null
+          name_fr: string
+          organization?: string | null
           sort_order?: number
           year?: string | null
         }
         Update: {
           created_at?: string
-          description_en?: string | null
-          description_fr?: string | null
           id?: string
+          kind?: string
           name_en?: string
-          name_fr?: string | null
-          org?: string | null
+          name_fr?: string
+          organization?: string | null
           sort_order?: number
           year?: string | null
         }
@@ -53,33 +48,36 @@ export type Database = {
       cvs: {
         Row: {
           created_at: string
+          file_name: string | null
           file_url: string
-          filename: string | null
           id: string
-          is_default: boolean
           label_en: string
-          label_fr: string | null
+          label_fr: string
+          language: string
           sort_order: number
+          tags: string[]
         }
         Insert: {
           created_at?: string
+          file_name?: string | null
           file_url: string
-          filename?: string | null
           id?: string
-          is_default?: boolean
           label_en: string
-          label_fr?: string | null
+          label_fr: string
+          language: string
           sort_order?: number
+          tags?: string[]
         }
         Update: {
           created_at?: string
+          file_name?: string | null
           file_url?: string
-          filename?: string | null
           id?: string
-          is_default?: boolean
           label_en?: string
-          label_fr?: string | null
+          label_fr?: string
+          language?: string
           sort_order?: number
+          tags?: string[]
         }
         Relationships: []
       }
@@ -87,95 +85,95 @@ export type Database = {
         Row: {
           created_at: string
           degree_en: string
-          degree_fr: string | null
+          degree_fr: string
           id: string
-          location: string | null
           period_en: string | null
           period_fr: string | null
           school_en: string
-          school_fr: string | null
+          school_fr: string
           sort_order: number
         }
         Insert: {
           created_at?: string
           degree_en: string
-          degree_fr?: string | null
+          degree_fr: string
           id?: string
-          location?: string | null
           period_en?: string | null
           period_fr?: string | null
           school_en: string
-          school_fr?: string | null
+          school_fr: string
           sort_order?: number
         }
         Update: {
           created_at?: string
           degree_en?: string
-          degree_fr?: string | null
+          degree_fr?: string
           id?: string
-          location?: string | null
           period_en?: string | null
           period_fr?: string | null
           school_en?: string
-          school_fr?: string | null
+          school_fr?: string
           sort_order?: number
         }
         Relationships: []
       }
       experiences: {
         Row: {
-          company: string | null
+          achievements_en: string | null
+          achievements_fr: string | null
+          company: string
           context_en: string | null
           context_fr: string | null
           created_at: string
-          details_en: string | null
-          details_fr: string | null
           id: string
-          location: string | null
+          location_en: string | null
+          location_fr: string | null
           mission_en: string | null
           mission_fr: string | null
           period_en: string | null
           period_fr: string | null
+          role_en: string
+          role_fr: string
           skills: string[]
           sort_order: number
-          title_en: string
-          title_fr: string | null
         }
         Insert: {
-          company?: string | null
+          achievements_en?: string | null
+          achievements_fr?: string | null
+          company: string
           context_en?: string | null
           context_fr?: string | null
           created_at?: string
-          details_en?: string | null
-          details_fr?: string | null
           id?: string
-          location?: string | null
+          location_en?: string | null
+          location_fr?: string | null
           mission_en?: string | null
           mission_fr?: string | null
           period_en?: string | null
           period_fr?: string | null
+          role_en: string
+          role_fr: string
           skills?: string[]
           sort_order?: number
-          title_en: string
-          title_fr?: string | null
         }
         Update: {
-          company?: string | null
+          achievements_en?: string | null
+          achievements_fr?: string | null
+          company?: string
           context_en?: string | null
           context_fr?: string | null
           created_at?: string
-          details_en?: string | null
-          details_fr?: string | null
           id?: string
-          location?: string | null
+          location_en?: string | null
+          location_fr?: string | null
           mission_en?: string | null
           mission_fr?: string | null
           period_en?: string | null
           period_fr?: string | null
+          role_en?: string
+          role_fr?: string
           skills?: string[]
           sort_order?: number
-          title_en?: string
-          title_fr?: string | null
         }
         Relationships: []
       }
@@ -183,6 +181,7 @@ export type Database = {
         Row: {
           created_at: string
           email: string
+          email_sent_at: string | null
           id: string
           is_read: boolean
           message: string
@@ -192,6 +191,7 @@ export type Database = {
         Insert: {
           created_at?: string
           email: string
+          email_sent_at?: string | null
           id?: string
           is_read?: boolean
           message: string
@@ -201,6 +201,7 @@ export type Database = {
         Update: {
           created_at?: string
           email?: string
+          email_sent_at?: string | null
           id?: string
           is_read?: boolean
           message?: string
@@ -221,10 +222,9 @@ export type Database = {
           features_en: string | null
           features_fr: string | null
           github_url: string | null
-          icon: string | null
           id: string
+          image_key: string | null
           image_url: string | null
-          is_recent: boolean
           results_en: string | null
           results_fr: string | null
           role_en: string | null
@@ -235,7 +235,7 @@ export type Database = {
           summary_fr: string | null
           tags: string[]
           title_en: string
-          title_fr: string | null
+          title_fr: string
           year: string | null
         }
         Insert: {
@@ -249,10 +249,9 @@ export type Database = {
           features_en?: string | null
           features_fr?: string | null
           github_url?: string | null
-          icon?: string | null
           id?: string
+          image_key?: string | null
           image_url?: string | null
-          is_recent?: boolean
           results_en?: string | null
           results_fr?: string | null
           role_en?: string | null
@@ -263,7 +262,7 @@ export type Database = {
           summary_fr?: string | null
           tags?: string[]
           title_en: string
-          title_fr?: string | null
+          title_fr: string
           year?: string | null
         }
         Update: {
@@ -277,10 +276,9 @@ export type Database = {
           features_en?: string | null
           features_fr?: string | null
           github_url?: string | null
-          icon?: string | null
           id?: string
+          image_key?: string | null
           image_url?: string | null
-          is_recent?: boolean
           results_en?: string | null
           results_fr?: string | null
           role_en?: string | null
@@ -291,7 +289,7 @@ export type Database = {
           summary_fr?: string | null
           tags?: string[]
           title_en?: string
-          title_fr?: string | null
+          title_fr?: string
           year?: string | null
         }
         Relationships: []
@@ -316,39 +314,45 @@ export type Database = {
       }
       skills: {
         Row: {
+          created_at: string
           group_key: string
           id: string
           name: string
           sort_order: number
+          tags: string[]
         }
         Insert: {
+          created_at?: string
           group_key: string
           id?: string
           name: string
           sort_order?: number
+          tags?: string[]
         }
         Update: {
+          created_at?: string
           group_key?: string
           id?: string
           name?: string
           sort_order?: number
+          tags?: string[]
         }
         Relationships: []
       }
       user_roles: {
         Row: {
           id: string
-          role: Database["public"]["Enums"]["app_role"]
+          role: string
           user_id: string
         }
         Insert: {
           id?: string
-          role: Database["public"]["Enums"]["app_role"]
+          role: string
           user_id: string
         }
         Update: {
           id?: string
-          role?: Database["public"]["Enums"]["app_role"]
+          role?: string
           user_id?: string
         }
         Relationships: []
@@ -358,16 +362,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
+      is_admin: {
+        Args: Record<PropertyKey, never>
         Returns: boolean
       }
     }
     Enums: {
-      app_role: "admin"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
@@ -380,122 +381,9 @@ type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
 type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends (DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never) = never,
-> = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  TableName extends keyof (DefaultSchema["Tables"] & DefaultSchema["Views"]),
+> = (DefaultSchema["Tables"] & DefaultSchema["Views"])[TableName] extends {
+  Row: infer R
 }
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R
-    }
-    ? R
-    : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
-        Row: infer R
-      }
-      ? R
-      : never
-    : never
-
-export type TablesInsert<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends (DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never) = never,
-> = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
-    }
-    ? I
-    : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Insert: infer I
-      }
-      ? I
-      : never
-    : never
-
-export type TablesUpdate<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends (DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never) = never,
-> = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
-    }
-    ? U
-    : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Update: infer U
-      }
-      ? U
-      : never
-    : never
-
-export type Enums<
-  DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema["Enums"]
-    | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never) = never,
-> = DefaultSchemaEnumNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
-    : never
-
-export type CompositeTypes<
-  PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema["CompositeTypes"]
-    | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never) = never,
-> = PublicCompositeTypeNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never
-
-export const Constants = {
-  public: {
-    Enums: {
-      app_role: ["admin"],
-    },
-  },
-} as const
+  ? R
+  : never

@@ -1,0 +1,9 @@
+{
+  "projectId": "72578418",
+  "functions": {
+    "send-contact-email": {
+      "hasChanged": false,
+      "hash": "5fe81efbcf446f95a6812bc6ea2a8bf71fcdc29fab856cef083e6e5ac2ac3c66"
+    }
+  }
+}

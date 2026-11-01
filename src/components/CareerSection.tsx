@@ -1,31 +1,26 @@
-import { motion } from "framer-motion";
-import { Rocket } from "lucide-react";
+import { ContentError, Reveal, SectionHeader, SkeletonList } from "@/components/common/SectionPrimitives";
+import { useSettings } from "@/hooks/useContent";
+import { useLanguage } from "@/lib/language";
 
-const CareerSection = () => {
+export const CareerSection = () => {
+  const { lang, t } = useLanguage();
+  const { data: settings, isLoading, isError } = useSettings();
+  const objective = settings?.profile.objective[lang] || settings?.profile.objective[lang === "fr" ? "en" : "fr"] || "";
+
   return (
-    <section id="career" className="py-24 px-6 neural-bg">
-      <div className="max-w-3xl mx-auto relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center mx-auto mb-6">
-            <Rocket size={24} className="text-primary-foreground" />
-          </div>
-          <p className="text-sm tracking-[0.2em] uppercase text-accent mb-2">What drives me</p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-8">Career Objective</h2>
-          <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-            I aim to grow as a <span className="text-foreground font-medium">software, AI and cloud engineer</span>,
-            building dependable systems that connect strong backend engineering with practical AI.
-            I am seeking a final-year internship in software development, Spring Boot, DevOps or cybersecurity,
-            and opportunities to contribute to innovative technology teams internationally.
-          </p>
-        </motion.div>
+    <section id="career" className="scroll-mt-20 bg-secondary py-20 md:py-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <Reveal>
+          <SectionHeader eyebrow={t("career_eyebrow")} title={t("career_title")} />
+        </Reveal>
+        {isLoading && <SkeletonList count={1} />}
+        {isError && <ContentError message={t("content_error")} />}
+        {objective && (
+          <Reveal className="rounded-xl border border-border bg-card p-6 shadow-card md:p-8">
+            <p className="text-base leading-[1.6] text-muted-foreground md:text-lg">{objective}</p>
+          </Reveal>
+        )}
       </div>
     </section>
   );
 };
-
-export default CareerSection;

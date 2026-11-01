@@ -1,77 +1,78 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CvMenu } from "@/components/common/CvMenu";
+import { LanguageToggle } from "@/components/common/LanguageToggle";
+import { useLanguage } from "@/lib/language";
+import type { CopyKey } from "@/lib/copy";
 
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Career", href: "#career" },
-  { label: "Contact", href: "#contact" },
+const LINKS: { href: string; label: CopyKey }[] = [
+  { href: "#about", label: "nav_about" },
+  { href: "#skills", label: "nav_skills" },
+  { href: "#projects", label: "nav_projects" },
+  { href: "#experience", label: "nav_experience" },
+  { href: "#education", label: "nav_education" },
+  { href: "#contact", label: "nav_contact" },
 ];
 
-const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
+export const Navbar = () => {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass shadow-card" : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#" className="font-display text-xl font-bold text-gradient">
-          SJ
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <a href="#top" className="flex items-center gap-2 rounded-md text-base font-bold text-foreground" aria-label={t("nav_home_label")}>
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm text-primary-foreground">SJ</span>
+          <span className="hidden sm:inline">Salma Jaghoua</span>
         </a>
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-            >
-              {link.label}
+
+        <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
+          {LINKS.map((link) => (
+            <a key={link.href} href={link.href} className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+              {t(link.label)}
             </a>
           ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <LanguageToggle />
+          <div className="hidden md:block">
+            <CvMenu variant="default" />
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? t("nav_close_menu") : t("nav_open_menu")}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
+          </Button>
         </div>
-        <button
-          className="md:hidden text-foreground"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
+
       {open && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          className="md:hidden glass border-t border-border/50 px-6 pb-4"
-        >
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block py-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </motion.div>
+        <div id="mobile-nav" className="border-t border-border bg-background px-4 py-4 lg:hidden">
+          <nav aria-label="Mobile" className="flex flex-col gap-1">
+            {LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="rounded-lg px-3 py-2 text-sm font-medium text-foreground hover:bg-secondary"
+              >
+                {t(link.label)}
+              </a>
+            ))}
+          </nav>
+          <div className="mt-3 md:hidden">
+            <CvMenu variant="default" />
+          </div>
+        </div>
       )}
-    </motion.nav>
+    </header>
   );
 };
-
-export default Navbar;

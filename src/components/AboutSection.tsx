@@ -1,68 +1,51 @@
-import { motion } from "framer-motion";
-import { GraduationCap, Target, Globe } from "lucide-react";
+import { Globe, IdCard } from "lucide-react";
+import { ContentError, Reveal, SectionHeader, SkeletonList } from "@/components/common/SectionPrimitives";
+import { useSettings } from "@/hooks/useContent";
+import { useLanguage } from "@/lib/language";
 
-const AboutSection = () => {
+export const AboutSection = () => {
+  const { lang, t } = useLanguage();
+  const { data: settings, isLoading, isError } = useSettings();
+  const bio = settings?.profile.bio[lang] || settings?.profile.bio[lang === "fr" ? "en" : "fr"] || "";
+  const languages = settings?.profile.languages[lang] || settings?.profile.languages[lang === "fr" ? "en" : "fr"] || "";
+  const license = settings?.profile.license[lang] || settings?.profile.license[lang === "fr" ? "en" : "fr"] || "";
+
   return (
-    <section id="about" className="py-24 px-6">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="text-sm tracking-[0.2em] uppercase text-accent mb-2">Get to know me</p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold">About Me</h2>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: GraduationCap,
-              title: "Education",
-              desc: "Fifth-year Computer Engineering student at ENSA Al Hoceima (engineering cycle since 2024), following two years of preparatory engineering studies there (2022–2024).",
-            },
-            {
-              icon: Target,
-              title: "Experience",
-              desc: "Backend development, AI integration, and process automation through internships with ARIMAYI, STELLANTIS Morocco, Synergy Soft, and Fujikura Automotive.",
-            },
-            {
-              icon: Globe,
-              title: "Ambition",
-              desc: "Seeking a final-year internship in software development, Spring Boot, DevOps, or cybersecurity, with an interest in AI and cloud engineering.",
-            },
-          ].map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="bg-gradient-card rounded-xl p-6 border border-border/50 shadow-card hover:border-primary/30 transition-colors duration-300"
-            >
-              <div className="w-12 h-12 rounded-lg bg-gradient-primary flex items-center justify-center mb-4">
-                <item.icon size={22} className="text-primary-foreground" />
-              </div>
-              <h3 className="font-display text-lg font-semibold mb-3">{item.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-        <div className="mt-12 grid md:grid-cols-2 gap-8 border-t border-border/50 pt-8 text-sm">
-          <div>
-            <h3 className="font-display font-semibold text-foreground mb-3">Certifications & community</h3>
-            <p className="text-muted-foreground leading-relaxed">freeCodeCamp AI Agents and Data Science certifications (2024–2025). Member of Club 01 and DataAI Club; participated in Hult Prize (2022–2023).</p>
+    <section id="about" className="scroll-mt-20 py-20 md:py-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <Reveal>
+          <SectionHeader eyebrow={t("about_eyebrow")} title={t("about_title")} />
+        </Reveal>
+        {isLoading && <SkeletonList count={2} />}
+        {isError && <ContentError message={t("content_error")} />}
+        {settings && (
+          <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+            <Reveal className="rounded-xl border border-border bg-card p-6 shadow-card md:p-8">
+              {bio && <p className="text-base leading-[1.5] text-muted-foreground md:text-lg">{bio}</p>}
+            </Reveal>
+            <Reveal delay={0.1} className="space-y-4">
+              {languages && (
+                <div className="rounded-xl border border-border bg-card p-6 shadow-card">
+                  <div className="mb-3 flex items-center gap-2 text-foreground">
+                    <Globe className="h-5 w-5 text-accent" aria-hidden="true" />
+                    <h3 className="font-semibold">{t("about_languages")}</h3>
+                  </div>
+                  <p className="text-sm leading-[1.5] text-muted-foreground">{languages}</p>
+                </div>
+              )}
+              {license && (
+                <div className="rounded-xl border border-border bg-card p-6 shadow-card">
+                  <div className="mb-3 flex items-center gap-2 text-foreground">
+                    <IdCard className="h-5 w-5 text-accent" aria-hidden="true" />
+                    <h3 className="font-semibold">{t("about_license")}</h3>
+                  </div>
+                  <p className="text-sm leading-[1.5] text-muted-foreground">{license}</p>
+                </div>
+              )}
+            </Reveal>
           </div>
-          <div>
-            <h3 className="font-display font-semibold text-foreground mb-3">Languages</h3>
-            <p className="text-muted-foreground leading-relaxed">Arabic (native) · French (fluent) · English (fluent) · Spanish (beginner)</p>
-          </div>
-        </div>
+        )}
       </div>
     </section>
   );
 };
-
-export default AboutSection;

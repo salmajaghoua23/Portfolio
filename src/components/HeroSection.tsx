@@ -1,78 +1,109 @@
-import { motion } from "framer-motion";
-import { Download, FolderOpen, Mail } from "lucide-react";
-import cvAsset from "@/assets/cv-salma-2027.pdf.asset.json";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CvMenu } from "@/components/common/CvMenu";
+import { FocusSwitcher } from "@/components/common/FocusSwitcher";
+import { ContentError, SkeletonList } from "@/components/common/SectionPrimitives";
+import { useSettings } from "@/hooks/useContent";
+import type { CopyKey, Lang } from "@/lib/copy";
+import { useLanguage } from "@/lib/language";
+import type { Profile } from "@/lib/settings";
+import type { Bilingual, FocusKey } from "@/lib/tags";
 
-const HeroSection = () => {
+const pick = (value: Bilingual, lang: Lang) => value[lang] || value[lang === "fr" ? "en" : "fr"];
+
+type HeroProps = { focus: FocusKey; onFocusChange: (next: FocusKey) => void };
+
+export const HeroSection = ({ focus, onFocusChange }: HeroProps) => {
+  const { lang, t } = useLanguage();
+  const { data: settings, isLoading, isError } = useSettings();
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center neural-bg overflow-hidden">
-      {/* Floating orbs */}
-      <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full bg-primary/5 blur-3xl animate-float" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-accent/5 blur-3xl animate-float" style={{ animationDelay: "3s" }} />
-      <div className="absolute top-1/2 left-1/2 w-64 h-64 rounded-full bg-primary/3 blur-3xl animate-pulse-glow" />
+    <section id="top" className="scroll-mt-20 border-b border-border bg-secondary py-16 md:py-24">
+      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:px-8">
+        <div className="space-y-6">
+          {isLoading && <SkeletonList count={2} className="max-w-md" />}
+          {isError && <ContentError message={t("content_error")} />}
+          {settings && <HeroText profile={settings.profile} focus={focus} lang={lang} />}
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <p className="text-sm md:text-base tracking-[0.3em] uppercase text-muted-foreground mb-4">
-            Welcome to my portfolio
-          </p>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-4 leading-tight">
-            Salma{" "}
-            <span className="text-gradient">Jaghoua</span>
-          </h1>
-          <p className="font-display text-xl md:text-2xl text-accent mb-6">
-            Computer Engineering Student | AI & Cloud Engineering
-          </p>
-        </motion.div>
+          <div className="space-y-3">
+            <p className="text-sm font-medium text-muted-foreground">{t("hero_focus_label")}</p>
+            <FocusSwitcher value={focus} onChange={onFocusChange} />
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
-        >
-          Passionate about Artificial Intelligence, Cloud Computing, Data Science, and Full Stack Development.
-          Focused on building intelligent and innovative systems that push the boundaries of technology.
-        </motion.p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button asChild className="gap-2">
+              <a href="#contact">
+                <Mail className="h-4 w-4" aria-hidden="true" />
+                {t("hero_contact")}
+              </a>
+            </Button>
+            <CvMenu />
+            {settings?.social.github && (
+              <Button asChild variant="ghost" className="gap-2">
+                <a href={settings.social.github} target="_blank" rel="noreferrer">
+                  <Github className="h-4 w-4" aria-hidden="true" />
+                  GitHub
+                </a>
+              </Button>
+            )}
+            {settings?.social.linkedin && (
+              <Button asChild variant="ghost" className="gap-2">
+                <a href={settings.social.linkedin} target="_blank" rel="noreferrer">
+                  <Linkedin className="h-4 w-4" aria-hidden="true" />
+                  LinkedIn
+                </a>
+              </Button>
+            )}
+          </div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a
-            href={cvAsset.url}
-            download="Cv_Salma_Jaghoua_FR_2027.pdf"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-primary text-primary-foreground font-medium text-sm hover:opacity-90 transition-opacity"
-          >
-            <Download size={18} />
-            Download CV (French)
-          </a>
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-medium text-sm hover:bg-secondary transition-colors"
-          >
-            <FolderOpen size={18} />
-            View Projects
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-medium text-sm hover:bg-secondary transition-colors"
-          >
-            <Mail size={18} />
-            Contact Me
-          </a>
-        </motion.div>
+        {settings && <GlanceCard profile={settings.profile} lang={lang} t={t} />}
       </div>
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };
 
-export default HeroSection;
+const HeroText = ({ profile, focus, lang }: { profile: Profile; focus: FocusKey; lang: Lang }) => {
+  const tagline = focus === "all" ? null : pick(profile.focus[focus], lang);
+  const subtitle = tagline || pick(profile.title, lang);
+  const badge = pick(profile.badge, lang);
+
+  return (
+    <div className="space-y-4">
+      {badge && (
+        <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-card px-3 py-1 text-sm font-medium text-primary shadow-sm">
+          <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
+          {badge}
+        </span>
+      )}
+      <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-foreground md:text-5xl">{profile.name}</h1>
+      <p className="text-xl font-semibold leading-[1.3] text-primary md:text-2xl">{subtitle}</p>
+      <p className="text-base text-muted-foreground">{pick(profile.school, lang)}</p>
+    </div>
+  );
+};
+
+const GlanceCard = ({ profile, lang, t }: { profile: Profile; lang: Lang; t: (key: CopyKey) => string }) => {
+  const rows: { label: string; value: string }[] = [
+    { label: t("hero_school"), value: pick(profile.school, lang) },
+    { label: t("hero_location"), value: pick(profile.location, lang) },
+    { label: t("hero_languages"), value: pick(profile.languages, lang) },
+    { label: t("hero_license"), value: pick(profile.license, lang) },
+  ].filter((row) => row.value);
+
+  if (rows.length === 0) return null;
+
+  return (
+    <aside className="h-fit rounded-xl border border-border bg-card p-6 shadow-card" aria-label={t("hero_glance")}>
+      <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.15em] text-accent">{t("hero_glance")}</h2>
+      <dl className="space-y-4">
+        {rows.map((row) => (
+          <div key={row.label}>
+            <dt className="text-xs font-medium text-muted-foreground">{row.label}</dt>
+            <dd className="text-sm font-medium text-foreground">{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </aside>
+  );
+};
